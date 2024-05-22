@@ -1,9 +1,13 @@
+import { lazy } from 'react'
+
 import { Router } from './Router'
 import { Route } from './Route'
 
-import HomePage from './pages/HomePage'
-import AboutUs from './pages/AboutUs'
-import SearchPage from './pages/SearchPage'
+import { Suspense } from 'react'
+
+const HomePage = lazy(() => import('./pages/HomePage'))
+const AboutUs = lazy(() => import('./pages/AboutUs'))
+const SearchPage = lazy(() => import('./pages/SearchPage'))
 
 const routes = [
   {
@@ -15,10 +19,12 @@ const routes = [
 function App() {
   return (
     <main>
-      <Router routes={routes}>
-        <Route path='/' Component={HomePage} />
-        <Route path='/about' Component={AboutUs} />
-      </Router>
+      <Suspense fallback={ null }>
+        <Router routes={routes}>
+          <Route path='/' Component={HomePage} />
+          <Route path='/about' Component={AboutUs} />
+        </Router>
+      </Suspense>
     </main>
   )
 }
