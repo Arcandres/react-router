@@ -10,7 +10,7 @@ function HomePage() {
     <>
       <h1>Home</h1>
       <p>Homepage example</p>
-      <button onClick={() => navigate('/about')}>About us</button>
+      <button onClick={() => navigateTo('/about')}>About us</button>
     </>
   )
 }
@@ -20,12 +20,12 @@ function AboutUs() {
     <>
       <h1>About Us</h1>
       <p>My name is Andres and this is a simple react-router clone from scratch.</p>
-      <button onClick={() => navigate('/')}>Back to home</button>
+      <button onClick={() => navigateTo('/')}>Back to home</button>
     </>
   )
 }
 
-function navigate (path) {
+function navigateTo (path) {
   window.history.pushState({}, '', path)
 
   const navigationEvent = new Event(EVENT);
@@ -41,9 +41,11 @@ function App() {
     }
 
     window.addEventListener(EVENT, onLocationChange)
+    window.addEventListener('popstate', onLocationChange)
 
     return () => {
       window.removeEventListener(EVENT, onLocationChange)
+      window.addEventListener('popstate', onLocationChange)
     }
     
   }, [])
