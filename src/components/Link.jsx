@@ -10,6 +10,7 @@ export function navigateTo(path) {
 export function Link ({ target, to, ...props }) {
   const handleClick = (event) => {
     
+    // Checking for primary click
     const isMainEvent = event.button === 0
     const isModifiedEvent = event.ctrlKey || event.shiftKey
     const isManageableEvent = target === undefined || target === '_self'
