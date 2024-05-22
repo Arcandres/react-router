@@ -1,17 +1,11 @@
 import { Router } from './Router'
+import { Route } from './Route'
+
 import HomePage from './pages/HomePage'
 import AboutUs from './pages/AboutUs'
 import SearchPage from './pages/SearchPage'
 
 const routes = [
-  {
-    path: '/',
-    Component: HomePage
-  },
-  {
-    path: '/about',
-    Component: AboutUs
-  },
   {
     path: '/search/:query',
     Component: SearchPage
@@ -21,7 +15,10 @@ const routes = [
 function App() {
   return (
     <main>
-      <Router routes={routes}/>
+      <Router routes={routes}>
+        <Route path='/' Component={HomePage} />
+        <Route path='/about' Component={AboutUs} />
+      </Router>
     </main>
   )
 }
