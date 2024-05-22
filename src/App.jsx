@@ -1,5 +1,3 @@
-import './App.css'
-
 import { Router } from './Router'
 import HomePage from './pages/HomePage'
 import AboutUs from './pages/AboutUs'
