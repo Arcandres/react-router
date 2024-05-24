@@ -19,7 +19,7 @@ const routes = [
 function App() {
   return (
     <main>
-      <Suspense fallback={ null }>
+      <Suspense fallback={ null }> {/*Lazyload implementation*/}
         <Router routes={routes}>
           <Route path='/' Component={HomePage} />
           <Route path='/about' Component={AboutUs} />

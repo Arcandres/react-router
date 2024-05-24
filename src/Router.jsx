@@ -14,10 +14,12 @@ export function Router({children, routes = [] }) {
       setActualPath(getCurrentPath())
     }
 
+    // Custom event to load component based on a path
     window.addEventListener(EVENTS.pushState, onLocationChange)
     window.addEventListener(EVENTS.popState, onLocationChange)
 
     return () => {
+      // Cleaning
       window.removeEventListener(EVENTS.pushState, onLocationChange)
       window.addEventListener(EVENTS.popState, onLocationChange)
     }
@@ -26,16 +28,18 @@ export function Router({children, routes = [] }) {
 
   let routeParams = {}
 
-  // Add routes from children Component Route
+  // Add routes from children components
   const routesFromChildren = Children.map(children, ({ props, type }) => {
     const { name } = type
 
     return name === 'Route' ? props : null
   })
 
-  const routesToUse = routes.concat(routesFromChildren).filter(Boolean)
+  const routesToUse = routes.concat(routesFromChildren)
+                            .filter(Boolean) // Filter boolean to avoid undefined 
   
   const Page = routesToUse.find(({ path }) => {
+    // First route to match
     if (path === actualPath) return true
 
     const matcherUrl = match(path, { decode: decodeURIComponent })
@@ -45,7 +49,7 @@ export function Router({children, routes = [] }) {
     routeParams = matched.params
     return true
 
-  })?.Component
+  })?.Component // If there is a match, let's get the Component from that path
 
   return Page ? <Page routeParams={routeParams} /> : <PageNotFound routeParams={routeParams} />
 
